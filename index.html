@@ -2,16 +2,14 @@
 <html lang="en">
 
 <head>
+  <title>Employee DXC</title>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title>Bootstrap 101 Template</title>
-
-  <!-- Bootstrap -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <script type="text/javascript" src="js/angular.min.js"></script>
-  <script type="text/javascript" src="js/app.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="js/app.js"></script>
 </head>
 
 <body ng-app="myApp" ng-controller="myController">
@@ -33,44 +31,22 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Hồ Minh Cường</td>
-          <td>cho38</td>
+        <tr ng-repeat="employee in employees">
+          <td>{{$index + 1}}</td>
+          <td>{{employee.fullname}}</td>
+          <td>{{employee.shortname}}</td>
           <td>
-            <button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#myModalEdit" ng-click="selectUser(user)">Edit</button>
+            <button class="btn btn-info btn-sm" type="button" data-toggle="modal" 
+                    data-target="#myModalEdit" ng-click="selectEmployee(employee)">Edit</button>
           </td>
           <td>
-            <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#myModalDelete" ng-click="selectUser(user)">Delete</button>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Trần Thị Kim Dung</td>
-          <td>dtran55</td>
-          <td>
-            <button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#myModalEdit" ng-click="selectUser(user)">Edit</button>
-          </td>
-          <td>
-            <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#myModalDelete" ng-click="selectUser(user)">Delete</button>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Vương Chí Phát</td>
-          <td>pvuong2</td>
-          <td>
-            <button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#myModalEdit" ng-click="selectUser(user)">Edit</button>
-          </td>
-          <td>
-            <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#myModalDelete" ng-click="selectUser(user)">Delete</button>
+            <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" 
+                    data-target="#myModalDelete" ng-click="selectEmployee(employee)">Delete</button>
           </td>
         </tr>
       </tbody>
     </table>
-  </div>  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+  </div>
 
   <!-- Modal -->
   <div id="myModal" class="modal fade" role="dialog">
@@ -80,27 +56,30 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">New User Registration</h4>
+          <h4 class="modal-title">New Employee Registration</h4>
         </div>
         <div class="modal-body">
           <form class="form-horizontal">
             <div class="form-group">
-              <label for="inputEmail3" class="col-sm-2 control-label">Fullname</label>
+              <label for="inputFullname" class="col-sm-2 control-label">Fullname</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Fullname" ng-model="newEmployee.fullname">
+                <input type="text" class="form-control" id="inputFullname" 
+                        placeholder="Enter Fullname" ng-model="newEmployee.fullname">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="inputEmail3" class="col-sm-2 control-label">Shortname</label>
+              <label for="inputShortname" class="col-sm-2 control-label">Shortname</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Shortname" ng-model="newEmployee.shortname">
+                <input type="text" class="form-control" id="inputShortname" 
+                        placeholder="Enter Shortname" ng-model="newEmployee.shortname">
               </div>
             </div>
 
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
-                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="saveUser();">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" 
+                        ng-click="saveEmployee();">Save</button>
               </div>
             </div>
           </form>
@@ -127,16 +106,18 @@
         <div class="modal-body">
           <form class="form-horizontal">
             <div class="form-group">
-              <label for="inputEmail3" class="col-sm-2 control-label">Fullname</label>
+              <label for="inputFullname" class="col-sm-2 control-label">Fullname</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter new Fullname" ng-model="clickedEmployee.fullname">
+                <input type="text" class="form-control" id="inputFullname" 
+                        placeholder="Enter new Fullname" ng-model="clickedEmployee.fullname">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="inputEmail3" class="col-sm-2 control-label">Shortname</label>
+              <label for="inputShortname" class="col-sm-2 control-label">Shortname</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputEmail3" placeholder="Enter new Shortname" ng-model="clickedEmployee.shortname">
+                <input type="text" class="form-control" id="inputShortname" 
+                        placeholder="Enter new Shortname" ng-model="clickedEmployee.shortname">
               </div>
             </div>
 
@@ -167,12 +148,13 @@
           <h4 class="modal-title">Are You Sure?</h4>
         </div>
         <div class="modal-body">
-          <h3 style="color: red">You are going to delete the employee. All information will be deleted and can't be undone.
-            </h3>
+          <h3 style="color: red">You are going to delete the employee {{clickedEmployee.fullname}}. All information will be deleted and can't be undone.
+          </h3>
           <br/>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ng-click="deleteUser()">Yes</button>
+          <button type="button" class="btn btn-default pull-left" 
+                  data-dismiss="modal" ng-click="deleteEmployee()">Yes</button>
           <button type="button" class="btn btn-default pull-right" data-dismiss="modal">No</button>
         </div>
       </div>
